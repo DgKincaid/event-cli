@@ -1,3 +1,4 @@
+
 import { IQueueRepository, IEventsRepository} from "src/interfaces";
 
 export class PublishService {
@@ -10,10 +11,15 @@ export class PublishService {
         this._events = events;
     }
 
-    onPublish(key: string): void {
+    async onPublish(key: string): Promise<void> {
 
         const event = this._events.getByKey(key);
 
-        console.log(event);
+        if (event !== null && event.data !== null) {
+
+            console.log('Successfully got event onPublish');
+
+            await this._queue.publish(event.exchange, event.key, event.contentType, event.data)
+        }
     }
 }

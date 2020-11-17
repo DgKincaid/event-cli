@@ -8,6 +8,8 @@ import * as PublishCommand from './commands/publish';
 import * as AddCommand from './commands/add';
 
 import RabbitRepository from './repository/rabbit.repository';
+// #!/usr/bin/env node
+
 import EventsRepository from './repository/events.repository';
 
 import { PublishService } from './publish/publish.service';
@@ -18,17 +20,29 @@ const args = yargs
     .help()
     .argv;
 
-// const spinner = ora('Running test: ').start();
+const spinner = ora('Running test: ').start();
 
 console.log(args);
 
-const publish = new PublishService(RabbitRepository, EventsRepository);
+(async () => {
 
-if (args.key && typeof args.key === 'string') {
-    publish.onPublish(args.key);
-}
+    try { 
+        await RabbitRepository.init();
+
+        const publish = new PublishService(RabbitRepository, EventsRepository);
+    
+        if (args.key && typeof args.key === 'string') {
+            await publish.onPublish(args.key);
+        }
+    } catch (e) {
+        
+    }
+    
+    spinner.stop();
+    process.exit(0);
+})();
 
 // 
 // setTimeout(() => {
-//     spinner.stop();
+//     
 // }, 5000);
