@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { config } from 'dotenv';
 config();
 
@@ -8,7 +10,6 @@ import * as PublishCommand from './commands/publish';
 import * as AddCommand from './commands/add';
 
 import RabbitRepository from './repository/rabbit.repository';
-// #!/usr/bin/env node
 
 import EventsRepository from './repository/events.repository';
 
