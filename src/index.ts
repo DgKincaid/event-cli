@@ -28,7 +28,7 @@ const spinner = ora('Running test: ').start();
 
 (async () => {
     debug('Starting');
-    
+
     try { 
         await RabbitRepository.init();
 
@@ -44,8 +44,3 @@ const spinner = ora('Running test: ').start();
     spinner.stop();
     process.exit(0);
 })();
-
-// 
-// setTimeout(() => {
-//     
-// }, 5000);
