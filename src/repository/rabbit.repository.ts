@@ -1,35 +1,42 @@
 import amqp, { Connection } from 'amqplib'
+import Debug from 'debug';
 import { IQueueRepository } from 'src/interfaces';
-
 class RabbitRepository implements IQueueRepository {
 
-    _connection: Connection | null;
+    private readonly _debug: Debug.Debugger = Debug('rabbit-repo');
+    private _connection: Connection | null;
 
     constructor() {
-        console.log('rabbit repository constructor');
+        this._debug('constructor');
 
         this._connection = null;
     }
 
     async init() {
-        console.log('rabbit repo init')
-        // TODO: Set as env var
-        this._connection = await amqp.connect('amqp://127.0.0.1/db');
+        this._debug('init')
+
+        if (process.env.RABBIT_URL) {
+            this._connection = await amqp.connect(process.env.RABBIT_URL);
+        } else {
+            this._debug('undefined rabbit_url')
+        }
 
         if(this._connection) {
-            console.log("Connected to Queue Succefully")
+            this._debug("Connection Successful")
         }
     }
 
     async publish(exchange: string, key: string, contentType: string, data: object): Promise<void> {
 
-        // TODO: have some sort of error handling
-        if (this._connection === null) return;
+        if (this._connection === null) {
+            this._debug('Connection undefined')
+            return;
+        }
 
         const channel = await this._connection.createChannel();
 
         if (channel) {
-            console.log('Successfully Created Channel');
+            this._debug('created channel');
 
             const sent = channel.publish(exchange, key, Buffer.from(JSON.stringify(data)), {
                 contentType

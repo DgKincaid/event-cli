@@ -1,7 +1,9 @@
-
+import Debug from 'debug';
 import { IQueueRepository, IEventsRepository} from "src/interfaces";
 
 export class PublishService {
+
+    private readonly _debug: Debug.Debugger = Debug('publish-service');
 
     private readonly _queue: IQueueRepository;
     private readonly _events: IEventsRepository;
@@ -17,7 +19,7 @@ export class PublishService {
 
         if (event !== null && event.data !== null) {
 
-            console.log('Successfully got event onPublish');
+            this._debug('event onPublish');
 
             await this._queue.publish(event.exchange, event.key, event.contentType, event.data)
         }

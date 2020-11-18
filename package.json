@@ -4,7 +4,6 @@
   "description": "event publishing cli",
   "main": "dist/index.js",
   "bin": "./",
-  
   "scripts": {
     "build": "tsc -p .",
     "dev": "ts-node src/index.ts"
@@ -13,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/amqplib": "^0.5.16",
+    "@types/debug": "^4.1.5",
     "@types/node": "^14.14.7",
     "@types/ora": "^3.2.0",
     "@types/yargs": "^15.0.9",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "amqplib": "^0.6.0",
+    "debug": "^4.2.0",
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
     "ora": "^5.1.0",

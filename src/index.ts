@@ -3,6 +3,7 @@
 import { config } from 'dotenv';
 config();
 
+import Debug from 'debug';
 import ora from 'ora';
 import yargs from 'yargs';
 
@@ -15,6 +16,8 @@ import EventsRepository from './repository/events.repository';
 
 import { PublishService } from './publish/publish.service';
 
+const debug = Debug('event-cli');
+
 const args = yargs
     .command(PublishCommand)
     .command(AddCommand)
@@ -23,10 +26,9 @@ const args = yargs
 
 const spinner = ora('Running test: ').start();
 
-console.log(args);
-
 (async () => {
-
+    debug('Starting');
+    
     try { 
         await RabbitRepository.init();
 
