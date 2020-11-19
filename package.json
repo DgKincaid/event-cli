@@ -1,11 +1,11 @@
 {
   "name": "event-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "event publishing cli",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "event-cli": "dist/index.js"
+    "event-cli": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc -p .",
