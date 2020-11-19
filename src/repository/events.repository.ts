@@ -11,10 +11,10 @@ class EventsRepository implements IEventsRepository {
 
         let rawEvents;
 
-        if(process.env.EVENT_CLI_FILE_LOCACTION && typeof process.env.EVENT_CLI_FILE_LOCACTION === 'string') {
+        if(process.env.EVENT_CLI_FILE_LOCATION && typeof process.env.EVENT_CLI_FILE_LOCATION === 'string') {
 
             try {
-                let rawdata = readFileSync(process.env.EVENT_CLI_FILE_LOCACTION, {
+                let rawdata = readFileSync(process.env.EVENT_CLI_FILE_LOCATION, {
                     encoding: 'utf8',
                 });
     

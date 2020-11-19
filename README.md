@@ -21,5 +21,5 @@
 Example event. To add more copy sturcture and add to array
 
 ### Environment Variables
-EVENT_CLI_FILE_LOCACTION - Location of file that contains events NEEDS TO BE .json
+EVENT_CLI_FILE_LOCATION - Location of file that contains events NEEDS TO BE .json
 RABBIT_URL - String for rabbit url
