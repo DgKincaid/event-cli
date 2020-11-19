@@ -11,6 +11,8 @@ class EventsRepository implements IEventsRepository {
 
         let rawEvents;
 
+        this._debug('constructor');
+
         if(process.env.EVENT_CLI_FILE_LOCATION && typeof process.env.EVENT_CLI_FILE_LOCATION === 'string') {
 
             try {
@@ -22,6 +24,8 @@ class EventsRepository implements IEventsRepository {
             } catch (error) {
                 this._debug(error);
             }
+        } else {
+            this._debug('EVENT_CLI_FILE_LOCATION not set properly');
         }
 
         this._eventsMap = new Map(rawEvents);
