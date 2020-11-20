@@ -31,9 +31,23 @@ class EventsRepository implements IEventsRepository {
         this._eventsMap = new Map(rawEvents);
     }
 
-    getAll() {
+    getAll(keys: string[]) {
 
-        return [];
+        let events: IEvent[] = [];
+
+        for(let i = 0; i < keys.length; i++) {
+
+            let event = this.getByKey(keys[i]);
+
+            if(event == null) {
+                this._debug('getall null event', keys[i]);
+                continue;
+            }
+
+            events.push(event);
+        }
+
+        return events;
     }
 
     getByKey(key: string): IEvent | null {

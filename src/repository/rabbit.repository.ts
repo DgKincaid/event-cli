@@ -12,6 +12,12 @@ class RabbitRepository implements IQueueRepository {
         this._connection = null;
     }
 
+    deconstructor() {
+
+        this._debug('deconstructor');
+        this._connection?.close();
+    }
+
     async init() {
         this._debug('init')
 
@@ -28,7 +34,7 @@ class RabbitRepository implements IQueueRepository {
 
     async publish(exchange: string, key: string, contentType: string, data: object): Promise<void> {
 
-        if (this._connection === null) {
+        if (this._connection === null || this._connection === undefined) {
             this._debug('Connection undefined')
             return;
         }
@@ -46,7 +52,6 @@ class RabbitRepository implements IQueueRepository {
 
             if (sent) {
                 await channel.close();
-                this._connection.close();
             }
         }
 

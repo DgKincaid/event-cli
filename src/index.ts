@@ -20,7 +20,7 @@ const debug = Debug('event-cli');
 
 const args = yargs
     .command(PublishCommand)
-    .command(AddCommand)
+    // .command(AddCommand)
     .help()
     .argv;
 
@@ -34,13 +34,15 @@ const spinner = ora('Running test: ').start();
 
         const publish = new PublishService(RabbitRepository, EventsRepository);
     
-        if (args.key && typeof args.key === 'string') {
-            await publish.onPublish(args.key);
+        if (args.keys && Array.isArray(args.keys)) {
+            await publish.onPublish(args.keys);
         }
     } catch (e) {
         
     }
     
+    RabbitRepository.deconstructor();
+
     spinner.stop();
     process.exit(0);
 })();

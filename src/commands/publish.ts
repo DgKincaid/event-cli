@@ -6,7 +6,7 @@ export const describe: string = 'Publish rabbit event';
 
 export const builder = (yargs: any) => {
     return yargs.options({
-        key: { type: 'string', demandOption: true, describe: 'Event routing key', alias: 'k'}
+        keys: { type: 'array', demandOption: true, describe: 'Event routing key', alias: 'k'}
     })
 }
 

@@ -13,15 +13,17 @@ export class PublishService {
         this._events = events;
     }
 
-    async onPublish(key: string): Promise<void> {
+    async onPublish(keys: string[]): Promise<void> {
 
-        const event = this._events.getByKey(key);
+        const events = this._events.getAll(keys);
 
-        if (event !== null && event.data !== null) {
+        for(const event of events) {
+            if (event !== null && event.data !== null) {
 
-            this._debug('event onPublish');
-
-            await this._queue.publish(event.exchange, event.key, event.contentType, event.data)
+                this._debug('event onPublish');
+    
+                await this._queue.publish(event.exchange, event.key, event.contentType, event.data)
+            }
         }
     }
 }
