@@ -33,9 +33,15 @@ const spinner = ora('Running test: ').start();
         await RabbitRepository.init();
 
         const publish = new PublishService(RabbitRepository, EventsRepository);
-    
+        
+        let times = 1;
+
+        if (args.times && !isNaN(Number(args.times))) {
+            times = args.times as number;
+        }
+
         if (args.keys && Array.isArray(args.keys)) {
-            await publish.onPublish(args.keys);
+            await publish.onPublish(args.keys, times);
         }
     } catch (e) {
         

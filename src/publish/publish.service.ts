@@ -13,8 +13,9 @@ export class PublishService {
         this._events = events;
     }
 
-    async onPublish(keys: string[]): Promise<void> {
+    async onPublish(keys: string[], times: number = 1): Promise<void> {
 
+        this._debug('onPublish', keys, times)
         const events = this._events.getAll(keys);
 
         for(const event of events) {
@@ -22,7 +23,9 @@ export class PublishService {
 
                 this._debug('event onPublish');
     
-                await this._queue.publish(event.exchange, event.key, event.contentType, event.data)
+                for(let i = 0; i < times; i++) {
+                    await this._queue.publish(event.exchange, event.key, event.contentType, event.data)
+                }
             }
         }
     }
