@@ -17,14 +17,15 @@ export class PublishService {
 
         this._debug('onPublish', keys, times)
         const events = this._events.getAll(keys);
+        console.log({keys});
 
         for(const event of events) {
             if (event !== null && event.data !== null) {
 
                 this._debug('event onPublish');
-    
+
                 for(let i = 0; i < times; i++) {
-                    await this._queue.publish(event.exchange, event.key, event.contentType, event.data)
+                    await this._queue.publish(event.exchange, event.key, event.data, event.options)
                 }
             }
         }
