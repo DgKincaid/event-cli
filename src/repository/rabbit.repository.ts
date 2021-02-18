@@ -32,7 +32,7 @@ class RabbitRepository implements IQueueRepository {
         }
     }
 
-    async publish(exchange: string, key: string, contentType: string, data: object): Promise<void> {
+    async publish(exchange: string, key: string, data: object, options: object): Promise<void> {
 
         if (this._connection === null || this._connection === undefined) {
             this._debug('Connection undefined')
@@ -44,9 +44,7 @@ class RabbitRepository implements IQueueRepository {
         if (channel) {
             this._debug('created channel');
 
-            const sent = channel.publish(exchange, key, Buffer.from(JSON.stringify(data)), {
-                contentType
-            });
+            const sent = channel.publish(exchange, key, Buffer.from(JSON.stringify(data)), options);
 
             console.log(" [x] Sent %s:'%s' to exchange %s", key, data, exchange);
 

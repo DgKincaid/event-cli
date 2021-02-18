@@ -29,11 +29,11 @@ const spinner = ora('Running test: ').start();
 (async () => {
     debug('Starting');
 
-    try { 
+    try {
         await RabbitRepository.init();
 
         const publish = new PublishService(RabbitRepository, EventsRepository);
-        
+
         let times = 1;
 
         if (args.times && !isNaN(Number(args.times))) {
@@ -44,9 +44,9 @@ const spinner = ora('Running test: ').start();
             await publish.onPublish(args.keys, times);
         }
     } catch (e) {
-        
+
     }
-    
+
     RabbitRepository.deconstructor();
 
     spinner.stop();

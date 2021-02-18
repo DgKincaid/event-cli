@@ -22,9 +22,9 @@ export class PublishService {
             if (event !== null && event.data !== null) {
 
                 this._debug('event onPublish');
-    
+
                 for(let i = 0; i < times; i++) {
-                    await this._queue.publish(event.exchange, event.key, event.contentType, event.data)
+                    await this._queue.publish(event.exchange, event.key, event.data, event.options)
                 }
             }
         }

@@ -10,7 +10,12 @@
 [
     ["event.key", {
         "exchange": "event-exchange",
-        "contentType": "application/json",
+        "options": {
+            "contentType": "application/json",
+            "headers": {
+                "streamId": "bloop"
+            },
+        },
         "key": "events.key",
         "data": {
             "Test": "Test"
@@ -18,7 +23,7 @@
     }]
 ]
 ```
-Example event. To add more copy sturcture and add to array
+Example event. To add more copy structure and add to array
 
 ### Environment Variables
 EVENT_CLI_FILE_LOCATION - Location of file that contains events NEEDS TO BE .json
