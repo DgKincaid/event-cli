@@ -17,7 +17,6 @@ export class PublishService {
 
         this._debug('onPublish', keys, times)
         const events = this._events.getAll(keys);
-        console.log({keys});
 
         for(const event of events) {
             if (event !== null && event.data !== null) {
